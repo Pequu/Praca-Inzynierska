@@ -19,53 +19,73 @@
             </style>
         @endif
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-        <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
-            @if (Route::has('login'))
-                <nav class="flex items-center justify-end gap-4">
-                    @auth
-                        <a
-                            href="{{ url('/dashboard') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >
-                            Dashboard
-                        </a>
-                    @else
-                        <a
-                            href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
-                        >
-                            Log in
-                        </a>
+        <body class="background text-gray-900 min-h-screen">
+        <!-- Nawigacja -->
 
-                        @if (Route::has('register'))
-                            <a
-                                href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                Register
-                            </a>
-                        @endif
-                    @endauth
-                </nav>
-            @endif
-        </header>
-        <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
-            <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
-                <div class="text-[13px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] rounded-bl-lg rounded-br-lg lg:rounded-tl-lg lg:rounded-br-none">
+        <x-banner></x-banner>
 
-                    Witaj na stronie Sieci kin Peqursor
+        <!-- Main content -->
+        <main class="flex justify-center min-h-[calc(100vh-4rem)] py-10">
+            <!-- Screenings list -->
+            <section class="w-full max-w-3xl space-y-5">
+                <!-- Screenings -->
+                @foreach($screenings as $screening)
+                    <a href="{{ route('screenings.show', $screening->id) }}"
+                    class="block bg-gray-100 rounded-xl shadow-md overflow-hidden mb-5 hover:shadow-xl transition duration-300">
 
+                        <div class="flex p-5 gap-6">
 
-                </div>
-                <div class="bg-[#fff2f2] dark:bg-[#1D0002] relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg aspect-[335/376] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden">
+                            <!-- Plakat -->
+                            <div class="w-32 h-44 flex-shrink-0">
+                                <img
+                                    src="{{ asset('storage/' . $screening->movie->poster) }}"
+                                    alt="{{ $screening->movie->title }}"
+                                    class="w-full h-full object-cover rounded-lg"
+                                >
+                            </div>
+                            <!-- Informacje o filmie -->
+                            <div class="flex-1">
+                                <h2 class="text-2xl font-bold mb-2">
+                                    {{ $screening->movie->title }}
+                                </h2>
 
-                    <img src="{{ asset('images/logoPeqursor.png') }}" alt="banner" class="absolute inset-0 w-full h-full object-cover">
-                </div>
-            </main>
-        </div>
+                                <p class="text-gray-600 mb-1">
+                                    {{ $screening->movie->duration }} min
+                                    |
+                                    {{ $screening->movie->age_rating }}
+                                </p>
+                                <p class="text-gray-600">
+                                    Sala:
+                                    <span class="font-medium">
+                                        {{ $screening->room->name }}
+                                    </span>
+                                </p>
+                                <p class="text-gray-600">
+                                    Cena:
+                                    <span class="font-medium">
+                                        {{ $screening->price }} zł
+                                    </span>
+                                </p>
+                            </div>
+                            <!-- Godzina -->
+                            <div class="flex flex-col justify-center items-end">
 
-        @if (Route::has('login'))
-            <div class="h-14.5 hidden lg:block"></div>
-        @endif
+                                <span class="text-gray-500 text-sm">
+                                    Seans
+                                </span>
+
+                                <span class="text-3xl font-bold text-red-600">
+                                    {{ $screening->start_time->format('H:i') }}
+                                </span>
+
+                                <span class="mt-4 bg-red-600 text-white px-6 py-2 rounded-lg">
+                                    Wybierz
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            </section>
+        </main>
     </body>
 </html>

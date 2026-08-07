@@ -24,9 +24,16 @@ return new class extends Migration
 
             $table->dateTime('start_time');
 
-            $table->decimal('price', 8, 2);
+            $table->decimal('price', 5, 2);
+
+            $table->enum('status', [
+                'scheduled',
+                'cancelled',
+                'finished'
+            ])->default('scheduled');
 
             $table->timestamps();
+
         });
     }
 
