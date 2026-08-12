@@ -18,11 +18,13 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->foreignId('genres_id')
+            $table->foreignId('genre_id')
                 ->constrained()
                 ->cascadeOnDelete();
 
             $table->timestamps();
+
+            $table->unique(['movie_id', 'genre_id']);
         });
     }
 

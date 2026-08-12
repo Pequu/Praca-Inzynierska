@@ -9,7 +9,7 @@ class ScreeningsController extends Controller
     public function index()
     {
         $screenings = Screening::with('movie', 'room')
-            ->where('start_time', '>=', now())
+            ->where('start_time', '>=', today())
             ->orderBy('start_time')
             ->get();
 
@@ -45,4 +45,5 @@ class ScreeningsController extends Controller
             compact('screening')
         );
     }
+
 }

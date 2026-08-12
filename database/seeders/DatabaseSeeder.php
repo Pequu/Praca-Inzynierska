@@ -22,14 +22,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        $this->call([
-        MovieSeeder::class,
-    ]);
-
     $this->call([
+        GenreSeeder::class,
         MovieSeeder::class,
         RoomSeeder::class,
         ScreeningSeeder::class,
+        GenreMovieSeeder::class,
     ]);
     }
 }

@@ -17,18 +17,16 @@ class Movie extends Model
     ];
 
 
-    public function screenings()
-    {
+    public function screenings(){
         return $this->hasMany(Screening::class);
     }
 
-
-    public function genres()
-    {
+    public function genres(){
         return $this->belongsToMany(
             Genre::class,
-            'movie_genre'
+            'genres_movie'
         );
     }
+
 
 }

@@ -7,15 +7,17 @@
 
     <div class="h-16 flex items-center justify-center gap-12 text-white ">
 
-        <x-nav-link href="#">Repertuar</x-nav-link>
+        <x-nav-link href="{{ route('index') }}">{{ 'Repertuar' }}</x-nav-link>
 
-        <x-nav-link href="#">Kina</x-nav-link>
+        <x-nav-link href="{{ route('prices') }}">{{ 'Cennik' }}</x-nav-link>
 
-        <x-nav-link href="#">Promocje</x-nav-link>
+        <x-nav-link href="#">{{ 'Kina' }}</x-nav-link>
+
+        <x-nav-link href="{{ route('offers') }}">{{ 'Promocje' }}</x-nav-link>
 
         @auth
             <x-nav-link :href="route('profile.edit')">
-                {{ __('Profile') }}
+                {{ __('Konto') }}
             </x-nav-link>
 
             <!-- Authentication -->
@@ -25,7 +27,7 @@
                 <x-nav-link :href="route('logout')"
                         onclick="event.preventDefault();
                                     this.closest('form').submit();">
-                    {{ __('Log Out') }}
+                    {{ __('Wyloguj') }}
                 </x-nav-link>
             </form>
 

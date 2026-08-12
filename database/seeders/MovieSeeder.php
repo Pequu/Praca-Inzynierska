@@ -88,7 +88,7 @@ class MovieSeeder extends Seeder
                 'description' => 'Elsa, Anna, Kristoff, Olaf i Sven wyruszają poza granice swojego królestwa, aby odkryć tajemnicę przeszłości i źródło niezwykłych mocy Elsy.',
                 'duration' => 103,
                 'release_date' => '2019-11-22',
-                'age_rating' => 'b/o',
+                'age_rating' => '0+',
                 'poster' => 'posters/frozen-2.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('genres', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('color', 7)->default('#6B7280');
 
             $table->timestamps();
         });
