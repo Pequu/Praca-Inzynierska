@@ -10,7 +10,11 @@ class Seat extends Model
     protected $fillable = [
         'room_id',
         'row',
-        'number'
+        'number',
+        'x',
+        'y',
+        'type',
+        'group_id',
     ];
 
 

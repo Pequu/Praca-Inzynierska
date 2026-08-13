@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Screening;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,16 +19,17 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Mateusz',
+            'email' => 'rzymekrz@gmail.com',
         ]);
 
-    $this->call([
-        GenreSeeder::class,
-        MovieSeeder::class,
-        RoomSeeder::class,
-        ScreeningSeeder::class,
-        GenreMovieSeeder::class,
-    ]);
+        $this->call([
+            GenreSeeder::class,
+            MovieSeeder::class,
+            RoomSeeder::class,
+            ScreeningSeeder::class,
+            GenreMovieSeeder::class,
+            SeatSeeder::class,
+        ]);
     }
 }

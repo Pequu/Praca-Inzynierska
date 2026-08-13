@@ -21,11 +21,17 @@ return new class extends Migration
             $table->string('row');
             $table->integer('number');
 
+            $table->integer('x');
+            $table->integer('y');
+
+            $table->string('type')
+                ->default('standard');
+
+            $table->unsignedBigInteger('group_id')
+                ->nullable();
+
             $table->timestamps();
-
         });
-
-
     }
 
     /**

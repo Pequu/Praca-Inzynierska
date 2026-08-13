@@ -40,5 +40,16 @@
                 {{ __('Rejestracja') }}
             </x-nav-link>
         @endauth
+
+        @auth
+            @if(Auth::user()->role?->name === 'admin')
+                <x-nav-link
+                    href="{{ route('admin') }}"
+                    :active="request()->routeIs('admin')"
+                >
+                    Panel admina
+                </x-nav-link>
+            @endif
+        @endauth
     </div>
 </nav>

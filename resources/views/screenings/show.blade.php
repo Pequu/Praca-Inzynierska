@@ -1,34 +1,4 @@
-<!DOCTYPE html>
-<html lang="pl">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>
-        {{ $screening->movie->title }} - Peqursor
-    </title>
-
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-100 text-gray-900">
-    <!-- Navbar -->
-    <header class="bg-black text-white h-16 flex items-center px-10">
-        <a href="/" class="text-2xl font-bold">
-            Peqursor
-        </a>
-        <nav class="ml-auto flex gap-8">
-            <a href="/" class="hover:text-red-400">
-                Repertuar
-            </a>
-            <a href="#" class="hover:text-red-400">
-                Kina
-            </a>
-            <a href="#" class="hover:text-red-400">
-                Kontakt
-            </a>
-        </nav>
-    </header>
+<x-app-layout>
     <!-- Szczegóły filmu -->
     <main class="max-w-5xl mx-auto py-10">
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
@@ -58,9 +28,15 @@
                             <strong>Wiek:</strong>
                             {{ $screening->movie->age_rating }}
                         </p>
-                        <p>
+                        <p class="flex items-center gap-2">
                             <strong>Sala:</strong>
-                            {{ $screening->room->name }}
+
+                            <span
+                                class="inline-block text-white px-2 rounded-lg font-semibold"
+                                style="background-color: {{ $screening->room->color }}"
+                            >
+                                {{ $screening->room->name }}
+                            </span>
                         </p>
                         <p>
                             <strong>Data:</strong>
@@ -77,14 +53,14 @@
                             {{ $screening->price }} zł
                         </p>
                     </div>
-                    <a href="#seats"
-                       class="inline-block mt-8 bg-red-600 text-white px-8 py-3 rounded-lg text-lg hover:bg-red-700">
+                    <a
+                        href="{{ route('screenings.seats', $screening->id) }}"
+                        class="inline-block mt-8 bg-red-600 text-white px-8 py-3 rounded-lg text-lg hover:bg-red-700 transition"
+                    >
                         Wybierz miejsca
                     </a>
                 </div>
             </div>
         </div>
     </main>
-</body>
-
-</html>
+</x-app-layout>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('capacity')->default(0);
             $table->text('description')->nullable();
+            $table->string('color', 7)->default('#dc2626');
 
             $table->timestamps();
         });

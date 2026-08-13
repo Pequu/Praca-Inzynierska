@@ -26,11 +26,6 @@ class RoomSeeder extends Seeder
                 'capacity' => 180,
             ],
             [
-                'name' => 'Sala VIP',
-                'description' => 'Sala VIP',
-                'capacity' => 40,
-            ],
-            [
                 'name' => 'Sala 4',
                 'description' => 'Sala kinowa nr 4',
                 'capacity' => 180,
@@ -39,11 +34,13 @@ class RoomSeeder extends Seeder
                 'name' => 'Sala Dream',
                 'description' => 'Sala Dream',
                 'capacity' => 40,
+                'color' => '#ba09f0',
             ],
             [
                 'name' => 'Sala IMAX',
                 'description' => 'Sala IMAX',
                 'capacity' => 300,
+                'color' => '#09baf0',
             ],
         ];
 

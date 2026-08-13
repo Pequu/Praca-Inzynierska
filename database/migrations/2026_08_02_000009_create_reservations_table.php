@@ -29,6 +29,8 @@ return new class extends Migration
             ])
             ->default('pending');
 
+            $table->decimal('total_price', 8, 2);
+
             $table->timestamps();
 
         });

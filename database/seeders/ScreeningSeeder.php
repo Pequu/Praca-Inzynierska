@@ -2,107 +2,107 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Screening;
 use App\Models\Movie;
 use App\Models\Room;
+use App\Models\Screening;
 use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 
 class ScreeningSeeder extends Seeder
 {
     public function run(): void
     {
-        $rooms = Room::all();
         $movies = Movie::all();
+        $rooms = Room::all();
 
-        if ($rooms->isEmpty() || $movies->isEmpty()) {
+        if ($movies->isEmpty() || $rooms->isEmpty()) {
             return;
         }
 
-        $screenings = [
+        /*
+         * Usuwamy stare seanse.
+         * Dzięki temu każdy seed tworzy świeży repertuar.
+         */
+        Screening::query()->delete();
 
-            [
-                'movie' => 'Diuna: Część druga',
-                'room' => 1,
-                'time' => '14:30',
-                'price' => 29.99,
-            ],
-
-            [
-                'movie' => 'Diuna: Część druga',
-                'room' => 2,
-                'time' => '19:00',
-                'price' => 34.99,
-            ],
-
-            [
-                'movie' => 'Oppenheimer',
-                'room' => 1,
-                'time' => '17:15',
-                'price' => 27.99,
-            ],
-
-            [
-                'movie' => 'Avatar: Istota wody',
-                'room' => 3,
-                'time' => '16:00',
-                'price' => 32.99,
-            ],
-
-            [
-                'movie' => 'Top Gun: Maverick',
-                'room' => 2,
-                'time' => '20:30',
-                'price' => 25.99,
-            ],
-
-            [
-                'movie' => 'Minecraft: Film',
-                'room' => 1,
-                'time' => '12:00',
-                'price' => 22.99,
-            ],
-
-            [
-                'movie' => 'Kraina Lodu 2',
-                'room' => 3,
-                'time' => '10:30',
-                'price' => 19.99,
-            ],
-
-            [
-                'movie' => 'Joker',
-                'room' => 2,
-                'time' => '21:00',
-                'price' => 26.99,
-            ],
-
-            [
-                'movie' => 'Interstellar',
-                'room' => 4,
-                'time' => '18:45',
-                'price' => 28.99,
-            ],
-
+        /*
+         * Godziny rozpoczęcia seansów.
+         */
+        $times = [
+            '10:00',
+            '12:15',
+            '14:30',
+            '16:45',
+            '19:00',
+            '21:15',
         ];
 
+        /*
+         * Generujemy repertuar na 7 dni.
+         */
+        for ($day = 0; $day < 7; $day++) {
 
-        foreach ($screenings as $item) {
+            /*
+             * Każdego dnia losujemy liczbę seansów.
+             */
+            $numberOfScreenings = rand(6, 8);
 
-            $movie = Movie::query()
-            ->where('title', $item['movie'])
-            ->first();
+            /*
+             * Zapamiętujemy zajęte sale i godziny,
+             * żeby nie stworzyć dwóch seansów w tej samej sali.
+             */
+            $used = [];
 
-            if ($movie) {
+            for ($i = 0; $i < $numberOfScreenings; $i++) {
 
+                /*
+                 * Szukamy wolnej kombinacji:
+                 * sala + godzina.
+                 */
+                do {
+                    $room = $rooms->random();
+                    $time = $times[array_rand($times)];
+
+                    $key = $room->id . '_' . $time;
+
+                } while (in_array($key, $used));
+
+                $used[] = $key;
+
+                /*
+                 * Losujemy film.
+                 */
+                $movie = $movies->random();
+
+                /*
+                 * Cena zależna od godziny.
+                 */
+                $hour = (int) substr($time, 0, 2);
+
+                if ($hour < 12) {
+
+                    $price = rand(1999, 2299) / 100;
+
+                } elseif ($hour < 17) {
+
+                    $price = rand(2499, 2999) / 100;
+
+                } else {
+
+                    $price = rand(2799, 3499) / 100;
+                }
+
+                /*
+                 * Tworzymy seans.
+                 */
                 Screening::create([
                     'movie_id' => $movie->id,
-                    'room_id' => $item['room'],
+                    'room_id' => $room->id,
                     'start_time' => Carbon::today()
-                        ->setTimeFromTimeString($item['time']),
-                    'price' => $item['price'],
+                        ->addDays($day)
+                        ->setTimeFromTimeString($time),
+                    'price' => $price,
                 ]);
-
             }
         }
     }

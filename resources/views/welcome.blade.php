@@ -1,76 +1,123 @@
 <x-app-layout>
     <!-- Main content -->
-    <main class="flex justify-center min-h-[calc(100vh-4rem)] py-10">
+    <main class="flex flex-col justify-center min-h-[calc(100vh-4rem)]">
+
+         <!-- Pagination -->
+        <div class="w-full max-w-3xl mb-6">
+            <div class="flex gap-2 overflow-x-auto pb-2">
+                @foreach($dates as $date)
+                    <a href="{{ route('screenings.index', ['date' => $date['date']]) }}"
+                        class="flex-shrink-0 px-5 py-3 rounded-xl font-semibold transition duration-200
+                            {{ $selectedDate === $date['date']
+                                ? 'bg-red-600 text-white shadow-md'
+                                : 'bg-gray-100 text-gray-700 hover:bg-yellow-200'
+                            }}">
+                        {{ $date['label'] }}
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
         <!-- Screenings list -->
         <section class="w-full max-w-3xl space-y-5">
             <!-- Screenings -->
-            @foreach($screenings as $screening)
-                <a href="{{ route('screenings.show', $screening->id) }}"
-                class="block bg-gray-100 rounded-xl shadow-md overflow-hidden mb-5 hover:shadow-xl transition duration-300">
+            @if($screenings->isEmpty())
+                <div class="bg-gray-100 rounded-xl shadow-md p-8 text-center">
+                    <h2 class="text-xl font-semibold text-gray-700">
+                        Brak seansów
+                    </h2>
 
-                    <!-- Gatunki -->
-                    <div class="flex flex-row justify-end mt-4">
-                        @foreach($screening->movie->genres as $genre)
-                            <span
-                                class="inline-block text-white text-xs font-semibold mr-4 px-2.5 py-0.5 rounded"
-                                style="background-color: {{ $genre->color }}"
-                            >
-                                {{ $genre->name }}
-                            </span>
-                        @endforeach
+                    <p class="text-gray-500 mt-2">
+                        W wybranym dniu nie ma zaplanowanych seansów.
+                    </p>
+                </div>
+
+            @else
+
+                @foreach($screenings as $movieScreenings)
+
+                    @php
+                        $movie = $movieScreenings->first()->movie;
+                    @endphp
+
+                    <div class="block bg-gray-100 rounded-xl shadow-md overflow-hidden mb-5">
+
+                        <div class="flex p-5 gap-6">
+
+                            <!-- Plakat -->
+                            <div class="w-32 h-44 flex-shrink-0">
+                                <img
+                                    src="{{ asset('storage/' . $movie->poster) }}"
+                                    alt="{{ $movie->title }}"
+                                    class="w-full h-full object-cover rounded-lg"
+                                >
+                            </div>
+
+
+                            <!-- Informacje o filmie -->
+                            <div class="flex-1">
+
+                                <h2 class="text-2xl font-bold mb-2">
+                                    {{ $movie->title }}
+                                </h2>
+
+                                <p class="text-gray-600 mb-1">
+                                    {{ $movie->duration }} min
+                                    |
+                                    {{ $movie->age_rating }}
+                                </p>
+
+
+                                <!-- Godziny seansów -->
+                                <div class="mt-5">
+
+                                    <p class="text-sm text-gray-500 mb-2">
+                                        Godziny seansów:
+                                    </p>
+
+                                    <div class="flex flex-wrap gap-2">
+
+                                        @foreach($movieScreenings as $screening)
+
+                                            <a
+                                                href="{{ route('screenings.show', $screening->id) }}"
+                                                class="text-white px-4 py-2 rounded-lg font-semibold transition"
+                                                style="background-color: {{ $screening->room->color }}"
+                                            >
+                                                {{ $screening->start_time->format('H:i') }}
+                                            </a>
+
+                                        @endforeach
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Gatunki -->
+                            <div class="w-28 flex flex-col items-end gap-2">
+
+                                @foreach($movie->genres as $genre)
+
+                                    <span
+                                        class="text-white text-xs font-semibold px-3 py-1 rounded text-center"
+                                        style="background-color: {{ $genre->color }}"
+                                    >
+                                        {{ $genre->name }}
+                                    </span>
+
+                                @endforeach
+
+                            </div>
+
+                        </div>
+
                     </div>
-                    <div class="flex p-5 gap-6">
 
-                        <!-- Plakat -->
-                        <div class="w-32 h-44 flex-shrink-0">
-                            <img
-                                src="{{ asset('storage/' . $screening->movie->poster) }}"
-                                alt="{{ $screening->movie->title }}"
-                                class="w-full h-full object-cover rounded-lg"
-                            >
-                        </div>
-                        <!-- Informacje o filmie -->
-                        <div class="flex-1">
-                            <h2 class="text-2xl font-bold mb-2">
-                                {{ $screening->movie->title }}
-                            </h2>
+                @endforeach
 
-                            <p class="text-gray-600 mb-1">
-                                {{ $screening->movie->duration }} min
-                                |
-                                {{ $screening->movie->age_rating }}
-                            </p>
-                            <p class="text-gray-600">
-                                Sala:
-                                <span class="font-medium">
-                                    {{ $screening->room->name }}
-                                </span>
-                            </p>
-                            <p class="text-gray-600">
-                                Cena:
-                                <span class="font-medium">
-                                    {{ $screening->price }} zł
-                                </span>
-                            </p>
-                        </div>
-                        <!-- Godzina -->
-                        <div class="flex flex-col justify-center items-end">
-
-                            <span class="text-gray-500 text-sm">
-                                Seans
-                            </span>
-
-                            <span class="text-3xl font-bold text-red-600">
-                                {{ $screening->start_time->format('H:i') }}
-                            </span>
-
-                            <span class="mt-4 bg-red-600 text-white px-6 py-2 rounded-lg">
-                                Wybierz
-                            </span>
-                        </div>
-
-                    </div>
-                </a>
-            @endforeach
+            @endif
         </section>
 </x-app-layout>
