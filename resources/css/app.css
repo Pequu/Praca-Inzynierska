@@ -35,3 +35,18 @@ body::before {
 .dred-input{
     background-color: rgb(99, 0, 0);
 }
+
+.admin-panel{
+    background-color: rgb(99, 0, 0);
+    border-radius: 1rem;
+    border: 1px solid rgb(99, 0, 0);
+    padding: 1.5rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0.5rem 0.5rem;
+    transition: all cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition-duration: 300ms;
+}
+
+.admin-panel:hover{
+    box-shadow: rgba(255, 196, 0, 0.3) 0 0.5rem 0.5rem;
+    transform: translateY(-0.3rem);
+}

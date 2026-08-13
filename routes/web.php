@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ScreeningsController;
 use App\Http\Controllers\OffersController;
 use App\Http\Controllers\PricesController;
+use App\Http\Controllers\AdminUsersController;
 
 Route::get('/', [ScreeningsController::class, 'index'])->name('index');
 
@@ -27,9 +28,28 @@ Route::get(
     [ScreeningsController::class, 'seats']
 )->name('screenings.seats');
 
+// Obsluga dostępu do panelu admina
 Route::get('/admin', function () {
-    return view('admin.index');
+    return view('admin.a-panel');
 })->middleware(['auth', 'verified', 'admin'])->name('admin');
+
+// Obsługa do edycji użytkowników
+Route::middleware(['auth', 'verified', 'admin'])
+    ->prefix('admin')
+    ->group(function () {
+
+    Route::get('/users', [AdminUsersController::class, 'index'])
+        ->name('admin.users.index');
+
+    Route::get('/users/{user}/edit', [AdminUsersController::class, 'edit'])
+        ->name('admin.users.edit');
+
+    Route::put('/users/{user}', [AdminUsersController::class, 'update'])
+        ->name('admin.users.update');
+
+    Route::delete('/users/{user}', [AdminUsersController::class, 'destroy'])
+        ->name('admin.users.destroy');
+});
 
 Route::get('offers',
     [OffersController::class, 'offers'])

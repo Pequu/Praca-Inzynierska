@@ -1,16 +1,16 @@
 <x-app-layout>
 
-    <div class="min-h-screen bg-gray-100 py-10 px-6 rounded-2xl">
+    <div class="min-h-screen bg-red-950 py-6 px-6 rounded-2xl">
 
-        <div class="max-w-7xl mx-auto">
+        <div class="max-w-7xl">
 
             {{-- Nagłówek --}}
             <div class="mb-10">
-                <h1 class="text-4xl font-bold text-gray-900">
+                <h1 class="text-4xl font-bold text-gray-200">
                     Panel administratora
                 </h1>
 
-                <p class="mt-2 text-gray-500">
+                <p class="mt-2 text-gray-300">
                     Zarządzaj systemem kina Peqursor
                 </p>
             </div>
@@ -21,14 +21,12 @@
 
 
                 {{-- Konta --}}
-                <a href="#"
-                class="group bg-white rounded-2xl border border-gray-200 p-6
-                        shadow-sm hover:shadow-xl hover:-translate-y-1
-                        transition-all duration-300">
+                <a href="{{ Route('admin.users.index') }}"
+                class="group admin-panel">
 
                     <div class="flex items-start justify-between">
 
-                        <div class="w-14 h-14 rounded-xl bg-blue-100
+                        <div class="w-14 h-14 rounded-xl bg-blue-200
                                     flex items-center justify-center
                                     text-blue-600 text-2xl">
 
@@ -38,16 +36,18 @@
 
                         <span class="text-gray-300 group-hover:text-blue-500
                                     transition text-xl">
-                            →
+                            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+                            </svg>
                         </span>
 
                     </div>
 
-                    <h2 class="mt-6 text-xl font-bold text-gray-900">
+                    <h2 class="mt-6 text-xl font-bold text-gray-200">
                         Zarządzanie kontami
                     </h2>
 
-                    <p class="mt-2 text-sm text-gray-500">
+                    <p class="mt-2 text-sm text-gray-300">
                         Zarządzaj użytkownikami, pracownikami
                         oraz uprawnieniami.
                     </p>
@@ -57,9 +57,7 @@
 
                 {{-- Sale --}}
                 <a href="#"
-                class="group bg-white rounded-2xl border border-gray-200 p-6
-                        shadow-sm hover:shadow-xl hover:-translate-y-1
-                        transition-all duration-300">
+                class="group admin-panel">
 
                     <div class="flex items-start justify-between">
 
@@ -73,16 +71,18 @@
 
                         <span class="text-gray-300 group-hover:text-purple-500
                                     transition text-xl">
-                            →
+                            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+                            </svg>
                         </span>
 
                     </div>
 
-                    <h2 class="mt-6 text-xl font-bold text-gray-900">
+                    <h2 class="mt-6 text-xl font-bold text-gray-200">
                         Zarządzanie salami
                     </h2>
 
-                    <p class="mt-2 text-sm text-gray-500">
+                    <p class="mt-2 text-sm text-gray-300">
                         Dodawaj, edytuj i usuwaj sale kinowe
                         oraz ich miejsca.
                     </p>
@@ -92,9 +92,7 @@
 
                 {{-- Seanse --}}
                 <a href="#"
-                class="group bg-white rounded-2xl border border-gray-200 p-6
-                        shadow-sm hover:shadow-xl hover:-translate-y-1
-                        transition-all duration-300">
+                class="group admin-panel">
 
                     <div class="flex items-start justify-between">
 
@@ -108,16 +106,18 @@
 
                         <span class="text-gray-300 group-hover:text-red-500
                                     transition text-xl">
-                            →
+                            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+                            </svg>
                         </span>
 
                     </div>
 
-                    <h2 class="mt-6 text-xl font-bold text-gray-900">
+                    <h2 class="mt-6 text-xl font-bold text-gray-200">
                         Zarządzanie seansami
                     </h2>
 
-                    <p class="mt-2 text-sm text-gray-500">
+                    <p class="mt-2 text-sm text-gray-300">
                         Planuj seanse, przypisuj filmy i sale
                         oraz zmieniaj godziny.
                     </p>
@@ -127,9 +127,7 @@
 
                 {{-- Rezerwacje --}}
                 <a href="#"
-                class="group bg-white rounded-2xl border border-gray-200 p-6
-                        shadow-sm hover:shadow-xl hover:-translate-y-1
-                        transition-all duration-300">
+                class="group admin-panel">
 
                     <div class="flex items-start justify-between">
 
@@ -143,16 +141,18 @@
 
                         <span class="text-gray-300 group-hover:text-green-500
                                     transition text-xl">
-                            →
+                            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+                            </svg>
                         </span>
 
                     </div>
 
-                    <h2 class="mt-6 text-xl font-bold text-gray-900">
+                    <h2 class="mt-6 text-xl font-bold text-gray-200">
                         Rezerwacje
                     </h2>
 
-                    <p class="mt-2 text-sm text-gray-500">
+                    <p class="mt-2 text-sm text-gray-300">
                         Przeglądaj i zarządzaj rezerwacjami
                         oraz biletami.
                     </p>
@@ -162,9 +162,7 @@
 
                 {{-- Filmy --}}
                 <a href="#"
-                class="group bg-white rounded-2xl border border-gray-200 p-6
-                        shadow-sm hover:shadow-xl hover:-translate-y-1
-                        transition-all duration-300">
+                class="group admin-panel">
 
                     <div class="flex items-start justify-between">
 
@@ -178,16 +176,18 @@
 
                         <span class="text-gray-300 group-hover:text-yellow-500
                                     transition text-xl">
-                            →
+                            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+                            </svg>
                         </span>
 
                     </div>
 
-                    <h2 class="mt-6 text-xl font-bold text-gray-900">
+                    <h2 class="mt-6 text-xl font-bold text-gray-200">
                         Zarządzanie filmami
                     </h2>
 
-                    <p class="mt-2 text-sm text-gray-500">
+                    <p class="mt-2 text-sm text-gray-300">
                         Dodawaj filmy, opisy, plakaty, gatunki
                         oraz informacje o produkcjach.
                     </p>
@@ -197,9 +197,7 @@
 
                 {{-- Gatunki --}}
                 <a href="#"
-                class="group bg-white rounded-2xl border border-gray-200 p-6
-                        shadow-sm hover:shadow-xl hover:-translate-y-1
-                        transition-all duration-300">
+                class="group admin-panel">
 
                     <div class="flex items-start justify-between">
 
@@ -213,16 +211,18 @@
 
                         <span class="text-gray-300 group-hover:text-pink-500
                                     transition text-xl">
-                            →
+                            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+                            </svg>
                         </span>
 
                     </div>
 
-                    <h2 class="mt-6 text-xl font-bold text-gray-900">
+                    <h2 class="mt-6 text-xl font-bold text-gray-200">
                         Zarządzanie gatunkami
                     </h2>
 
-                    <p class="mt-2 text-sm text-gray-500">
+                    <p class="mt-2 text-sm text-gray-300">
                         Dodawaj i edytuj gatunki filmowe
                         dostępne w systemie.
                     </p>
