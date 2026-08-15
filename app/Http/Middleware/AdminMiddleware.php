@@ -11,7 +11,7 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check() || Auth::user()->role?->name !== 'admin') {
+        if (!Auth::check() || Auth::user()->role?->role_name !== 'admin') {
             abort(403);
         }
 

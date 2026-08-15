@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="min-h-screen bg-red-950 py-6 px-6 rounded-2xl">
+    <div class="min-h-screen bg-zinc-900 border-2 border-gray-200 py-6 px-6 rounded-2xl">
 
         <div class="max-w-7xl">
 
@@ -22,7 +22,7 @@
 
                 {{-- Konta --}}
                 <a href="{{ Route('admin.users.index') }}"
-                class="group admin-panel">
+                class="group admin-panel ">
 
                     <div class="flex items-start justify-between">
 
@@ -91,7 +91,7 @@
 
 
                 {{-- Seanse --}}
-                <a href="#"
+                <a href="{{ route('admin.screenings.index') }}"
                 class="group admin-panel">
 
                     <div class="flex items-start justify-between">
@@ -161,17 +161,13 @@
 
 
                 {{-- Filmy --}}
-                <a href="#"
+                <a href="{{ route('admin.movies.index') }}"
                 class="group admin-panel">
-
                     <div class="flex items-start justify-between">
-
                         <div class="w-14 h-14 rounded-xl bg-yellow-100
                                     flex items-center justify-center
                                     text-yellow-600 text-2xl">
-
                             🎞️
-
                         </div>
 
                         <span class="text-gray-300 group-hover:text-yellow-500
@@ -196,7 +192,7 @@
 
 
                 {{-- Gatunki --}}
-                <a href="#"
+                <a href="{{ route('admin.genres.index') }}"
                 class="group admin-panel">
 
                     <div class="flex items-start justify-between">

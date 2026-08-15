@@ -11,33 +11,33 @@ class RoomSeeder extends Seeder
     {
         $rooms = [
             [
-                'name' => 'Sala 1',
+                'room_name' => 'Sala 1',
                 'description' => 'Sala kinowa nr 1',
                 'capacity' => 120,
             ],
             [
-                'name' => 'Sala 2',
+                'room_name' => 'Sala 2',
                 'description' => 'Sala kinowa nr 2',
                 'capacity' => 80,
             ],
             [
-                'name' => 'Sala 3',
+                'room_name' => 'Sala 3',
                 'description' => 'Sala kinowa nr 3',
                 'capacity' => 180,
             ],
             [
-                'name' => 'Sala 4',
+                'room_name' => 'Sala 4',
                 'description' => 'Sala kinowa nr 4',
                 'capacity' => 180,
             ],
             [
-                'name' => 'Sala Dream',
+                'room_name' => 'Sala Dream',
                 'description' => 'Sala Dream',
                 'capacity' => 40,
                 'color' => '#ba09f0',
             ],
             [
-                'name' => 'Sala IMAX',
+                'room_name' => 'Sala IMAX',
                 'description' => 'Sala IMAX',
                 'capacity' => 300,
                 'color' => '#09baf0',

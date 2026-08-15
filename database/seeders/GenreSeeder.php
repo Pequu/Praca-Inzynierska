@@ -29,7 +29,7 @@ class GenreSeeder extends Seeder
 
         foreach ($genres as $name => $color) {
             Genre::create([
-                'name' => $name,
+                'genre_name' => $name,
                 'color' => $color,
             ]);
         }

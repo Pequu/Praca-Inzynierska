@@ -8,7 +8,7 @@ class Room extends Model
 {
 
     protected $fillable = [
-        'name',
+        'room_name',
         'capacity',
         'color'
     ];

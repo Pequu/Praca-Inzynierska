@@ -9,7 +9,7 @@
 
         @auth
 
-            @if(Auth::user()->role?->name === 'admin')
+            @if(Auth::user()->role?->role_name === 'admin')
 
                 {{-- ================= ADMIN ================= --}}
 

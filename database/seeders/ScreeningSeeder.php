@@ -40,7 +40,7 @@ class ScreeningSeeder extends Seeder
         /*
          * Generujemy repertuar na 7 dni.
          */
-        for ($day = 0; $day < 7; $day++) {
+        for ($day = -1; $day < 7; $day++) {
 
             /*
              * Każdego dnia losujemy liczbę seansów.
@@ -81,15 +81,15 @@ class ScreeningSeeder extends Seeder
 
                 if ($hour < 12) {
 
-                    $price = rand(1999, 2299) / 100;
+                    $screening_price = rand(1999, 2299) / 100;
 
                 } elseif ($hour < 17) {
 
-                    $price = rand(2499, 2999) / 100;
+                    $screening_screening_price = rand(2499, 2999) / 100;
 
                 } else {
 
-                    $price = rand(2799, 3499) / 100;
+                    $screening_price = rand(2799, 3499) / 100;
                 }
 
                 /*
@@ -101,7 +101,7 @@ class ScreeningSeeder extends Seeder
                     'start_time' => Carbon::today()
                         ->addDays($day)
                         ->setTimeFromTimeString($time),
-                    'price' => $price,
+                    'screening_price' => $screening_price,
                 ]);
             }
         }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
+            $table->string('room_name');
             $table->integer('capacity')->default(0);
             $table->text('description')->nullable();
             $table->string('color', 7)->default('#dc2626');

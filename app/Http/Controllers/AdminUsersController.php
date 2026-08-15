@@ -23,7 +23,8 @@ class AdminUsersController extends Controller
         }
 
         $users = $query
-            ->orderBy('name')
+            ->orderBy('role_id')
+            ->orderBy('updated_at','desc')
             ->paginate(10)
             ->withQueryString();
 
@@ -32,7 +33,7 @@ class AdminUsersController extends Controller
 
     public function edit(User $user)
     {
-        $roles = Role::orderBy('name', 'asc')->get();
+        $roles = Role::orderBy('role_name', 'asc')->get();
 
         return view('admin.users.edit', compact('user', 'roles'));
     }

@@ -74,10 +74,10 @@ class GenreMovieSeeder extends Seeder
                 continue;
             }
 
-            foreach ($genres as $genreName) {
+            foreach ($genres as $genre_name) {
 
                 $genre = Genre::query()
-                    ->where('name', '=', $genreName)
+                    ->where('genre_name', '=', $genre_name)
                     ->first();
 
                 if (!$genre) {

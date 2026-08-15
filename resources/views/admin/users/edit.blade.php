@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="min-h-screen bg-gray-100 py-10 px-6">
+    <div class="min-h-screen bg-gray-100 py-10 px-6 rounded-2xl">
 
         <div class="max-w-3xl mx-auto">
 
@@ -102,7 +102,7 @@
 
 
                     {{-- Rola --}}
-                    <div class="mb-8">
+                    <div class="mb-4">
 
                         <label
                             for="role_id"
@@ -128,7 +128,7 @@
                                     value="{{ $role->id }}"
                                     @selected(old('role_id', $user->role_id) == $role->id)
                                 >
-                                    {{ $role->name }}
+                                    {{ $role->role_name }}
                                 </option>
 
                             @endforeach
@@ -141,6 +141,31 @@
                             </p>
                         @enderror
 
+                    </div>
+
+                    {{-- Utworzony + Aktualizowany --}}
+                    <div class="mb-8">
+                        <label
+                            for="created_at"
+                            class="block text-sm font-semibold text-gray-700"
+                        >
+                            Edytowany
+                        </label>
+
+                        <div id="created_at" class="text-gray-400 text-sm mb-2">
+                            {{ $user->updated_at->format('d-m-Y | H:i') }}
+                        </div>
+
+                        <label
+                            for="updated_at"
+                            class="block text-sm font-semibold text-gray-700"
+                        >
+                            Edytowany
+                        </label>
+
+                        <div id="updated_at" class="text-gray-400 text-sm mb-2">
+                            {{ $user->updated_at->format('d-m-Y | H:i') }}
+                        </div>
                     </div>
 
 

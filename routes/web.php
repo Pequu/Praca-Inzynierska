@@ -1,14 +1,25 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+//Profil
+use App\Http\Controllers\ProfileController;
+// Repertuar
 use App\Http\Controllers\ScreeningsController;
+//Navbar
 use App\Http\Controllers\OffersController;
 use App\Http\Controllers\PricesController;
+//Admin Panel
 use App\Http\Controllers\AdminUsersController;
+use App\Http\Controllers\AdminMoviesController;
+use App\Http\Controllers\AdminReservationsController;
+use App\Http\Controllers\AdminRoomsController;
+use App\Http\Controllers\AdminScreeningsController;
+use App\Http\Controllers\AdminGenresController;
 
+// Repertuar
 Route::get('/', [ScreeningsController::class, 'index'])->name('index');
 
+// Dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -28,16 +39,21 @@ Route::get(
     [ScreeningsController::class, 'seats']
 )->name('screenings.seats');
 
+/*
+*   ADMIN PANEL
+*/
+
 // Obsluga dostępu do panelu admina
 Route::get('/admin', function () {
     return view('admin.a-panel');
 })->middleware(['auth', 'verified', 'admin'])->name('admin');
 
-// Obsługa do edycji użytkowników
+// Obsługa panelu
 Route::middleware(['auth', 'verified', 'admin'])
     ->prefix('admin')
     ->group(function () {
 
+    // Użytkownicy
     Route::get('/users', [AdminUsersController::class, 'index'])
         ->name('admin.users.index');
 
@@ -49,8 +65,51 @@ Route::middleware(['auth', 'verified', 'admin'])
 
     Route::delete('/users/{user}', [AdminUsersController::class, 'destroy'])
         ->name('admin.users.destroy');
+
+    // Filmy
+    Route::get('/movies', [AdminMoviesController::class, 'index'])
+            ->name('admin.movies.index');
+
+    Route::get('/movies/{movie}/edit', [AdminMoviesController::class, 'edit'])
+        ->name('admin.movies.edit');
+
+    Route::put('/movies/{movie}', [AdminMoviesController::class, 'update'])
+        ->name('admin.movies.update');
+
+    Route::delete('/movies/{movie}', [AdminMoviesController::class, 'destroy'])
+        ->name('admin.movies.destroy');
+
+    // Seanse
+    Route::get('/screenings', [AdminScreeningsController::class, 'index'])
+            ->name('admin.screenings.index');
+
+    Route::get('/screenings#header', [AdminScreeningsController::class, 'index'])
+            ->name('admin.screenings.index#header');
+
+    Route::get('/screenings/{screening}/edit', [AdminScreeningsController::class, 'edit'])
+        ->name('admin.screenings.edit');
+
+    Route::put('/screenings/{screening}', [AdminScreeningsController::class, 'update'])
+        ->name('admin.screenings.update');
+
+    Route::delete('/screenings/{screening}', [AdminScreeningsController::class, 'destroy'])
+        ->name('admin.screenings.destroy');
+
+    // Gatunki
+    Route::get('/genres', [AdminGenresController::class, 'index'])
+            ->name('admin.genres.index');
+
+    Route::get('/genres/{genre}/edit', [AdminGenresController::class, 'edit'])
+        ->name('admin.genres.edit');
+
+    Route::put('/genres/{genre}', [AdminGenresController::class, 'update'])
+        ->name('admin.genres.update');
+
+    Route::delete('/genres/{genre}', [AdminGenresController::class, 'destroy'])
+        ->name('admin.genres.destroy');
 });
 
+// Nav
 Route::get('offers',
     [OffersController::class, 'offers'])
 ->name('offers');

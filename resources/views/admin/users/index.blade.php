@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="min-h-screen bg-gray-100 py-10 px-6">
+    <div class="min-h-screen bg-zinc-900 rounded-2xl py-10 px-6">
 
         <div class="max-w-7xl mx-auto">
 
@@ -8,20 +8,18 @@
             <div class="flex items-center justify-between mb-8">
 
                 <div>
-                    <h1 class="text-4xl font-bold text-gray-900">
+                    <h1 class="text-4xl font-bold text-gray-200">
                         Zarządzanie kontami
                     </h1>
 
-                    <p class="mt-2 text-gray-500">
+                    <p class="mt-2 text-gray-300">
                         Zarządzaj użytkownikami systemu
                     </p>
                 </div>
 
-                <a href="{{ route('admin') }}"
-                class="px-5 py-3 rounded-xl bg-zinc-900 text-white
-                        hover:bg-zinc-800 transition">
-                    Powrót
-                </a>
+                <x-a-secondary href="{{ route('admin') }}">
+                    {{ 'Powrót' }}
+                </x-a-secondary>
 
             </div>
 
@@ -56,12 +54,9 @@
                             focus:border-zinc-500 focus:ring-zinc-500"
                     >
 
-                    <button
-                        type="submit"
-                        class="px-6 py-3 rounded-xl bg-zinc-900
-                            text-white hover:bg-zinc-800 transition">
+                    <x-primary-button>
                         Szukaj
-                    </button>
+                    </x-primary-button>
 
                 </form>
 
@@ -90,7 +85,7 @@
                             </th>
 
                             <th class="text-left px-6 py-4">
-                                Data utworzenia
+                                Ostatnio edytowany
                             </th>
 
                             <th class="text-right px-6 py-4">
@@ -116,7 +111,7 @@
 
                                 <td class="px-6 py-4">
 
-                                    @if($user->role?->name === 'admin')
+                                    @if($user->role?->role_name === 'admin')
 
                                         <span class="px-3 py-1 rounded-full
                                                     text-xs font-semibold
@@ -124,13 +119,22 @@
                                             {{ 'Administrator' }}
                                         </span>
 
-                                    @elseif($user->role?->name === 'worker')
+                                    @elseif($user->role?->role_name === 'worker')
 
                                         <span class="px-3 py-1 rounded-full
                                                     text-xs font-semibold
                                                     bg-green-100 text-green-700">
                                             {{ 'Pracownik' }}
                                         </span>
+
+                                    @elseif($user->role?->role_name === 'customer')
+
+                                        <span class="px-3 py-1 rounded-full
+                                                    text-xs font-semibold
+                                                    bg-blue-100 text-blue-4 00">
+                                            {{ 'Klient' }}
+                                        </span>
+
 
                                     @else
 
@@ -144,8 +148,9 @@
 
                                 </td>
 
+                                {{-- edytowany --}}
                                 <td class="px-6 py-4 text-gray-600">
-                                    {{ $user->created_at->format('d.m.Y H:i') }}
+                                    {{ $user->updated_at->format('d.m.Y H:i') }}
                                 </td>
 
                                 <td class="px-6 py-4">

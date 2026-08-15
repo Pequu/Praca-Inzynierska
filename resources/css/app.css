@@ -37,9 +37,9 @@ body::before {
 }
 
 .admin-panel{
-    background-color: rgb(99, 0, 0);
+    background-color: rgb(36, 33, 33);
     border-radius: 1rem;
-    border: 1px solid rgb(99, 0, 0);
+    border: .05rem solid rgb(149, 0, 0);
     padding: 1.5rem;
     box-shadow: rgba(0, 0, 0, 0.1) 0 0.5rem 0.5rem;
     transition: all cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -47,6 +47,8 @@ body::before {
 }
 
 .admin-panel:hover{
-    box-shadow: rgba(255, 196, 0, 0.3) 0 0.5rem 0.5rem;
+    box-shadow: rgba(255, 187, 0, 0.507) 0 0.2rem 0.5rem;
     transform: translateY(-0.3rem);
+    border-color: rgb(255, 179, 0);
+
 }

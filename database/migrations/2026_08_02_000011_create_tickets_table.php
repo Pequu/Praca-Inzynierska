@@ -41,7 +41,7 @@ return new class extends Migration
             // The timestamp when the ticket was used (if applicable)
             $table->timestamp('used_at')->nullable();
 
-            $table->decimal('price', 8, 2);
+            $table->decimal('ticket_price', 8, 2);
 
             $table->timestamps();
         });

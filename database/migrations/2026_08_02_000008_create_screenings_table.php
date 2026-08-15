@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->dateTime('start_time');
 
-            $table->decimal('price', 5, 2);
+            $table->decimal('screening_price', 5, 2);
 
             $table->enum('status', [
                 'scheduled',
