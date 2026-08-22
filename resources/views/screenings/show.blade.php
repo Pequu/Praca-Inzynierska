@@ -35,7 +35,7 @@
                                 class="inline-block text-white px-2 rounded-lg font-semibold"
                                 style="background-color: {{ $screening->room->color }}"
                             >
-                                {{ $screening->room->name }}
+                                {{ $screening->room->room_name }}
                             </span>
                         </p>
                         <p>
@@ -50,7 +50,7 @@
                         </p>
                         <p>
                             <strong>Cena:</strong>
-                            {{ $screening->price }} zł
+                            {{ $screening->screening_price }} zł
                         </p>
                     </div>
                     <a

@@ -31,13 +31,13 @@ class RoomSeeder extends Seeder
                 'capacity' => 180,
             ],
             [
-                'room_name' => 'Sala Dream',
+                'room_name' => 'Dream',
                 'description' => 'Sala Dream',
                 'capacity' => 40,
                 'color' => '#ba09f0',
             ],
             [
-                'room_name' => 'Sala IMAX',
+                'room_name' => 'IMAX',
                 'description' => 'Sala IMAX',
                 'capacity' => 300,
                 'color' => '#09baf0',

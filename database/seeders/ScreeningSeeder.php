@@ -85,7 +85,7 @@ class ScreeningSeeder extends Seeder
 
                 } elseif ($hour < 17) {
 
-                    $screening_screening_price = rand(2499, 2999) / 100;
+                    $screening_price = rand(2499, 2999) / 100;
 
                 } else {
 

@@ -105,7 +105,7 @@
                                         class="text-white text-xs font-semibold px-3 py-1 rounded text-center"
                                         style="background-color: {{ $genre->color }}"
                                     >
-                                        {{ $genre->name }}
+                                        {{ $genre->genre_name }}
                                     </span>
 
                                 @endforeach

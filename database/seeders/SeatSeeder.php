@@ -15,7 +15,7 @@ class SeatSeeder extends Seeder
         foreach ($rooms as $room) {
 
             // Liczba rzędów i miejsc w rzędzie
-            switch ($room->name) {
+            switch ($room->room_name) {
 
                 case 'IMAX':
                     $rows = 14;
@@ -33,6 +33,8 @@ class SeatSeeder extends Seeder
                     break;
             }
 
+            $couch_id = 0;
+
             for ($row = 0; $row < $rows; $row++) {
 
                 // A, B, C, D...
@@ -40,14 +42,50 @@ class SeatSeeder extends Seeder
 
                 for ($number = 1; $number <= $seatsPerRow; $number++) {
 
-                    Seat::create([
-                        'room_id' => $room->id,
+                    if($number <= 2 && $rowLetter == 'A' ||
+                        $number >= $seatsPerRow - 1 && $rowLetter == 'A'
+                    ){
+                        Seat::create([
+                            'room_id' => $room->id,
                         'row' => $rowLetter,
                         'number' => $number,
                         'x' => $number,
                         'y' => $row,
-                        'type' => 'standard',
-                    ]);
+                        'type' => 'wheelchair',
+                        ]);
+                    }else if($row >= $rows - 2 && $number % 2 != 0){
+                        Seat::create([
+                            'room_id' => $room->id,
+                            'row' => $rowLetter,
+                            'number' => $number,
+                            'x' => $number,
+                            'y' => $row,
+                            'type' => 'couch',
+                            'group_id' => $couch_id,
+                        ]);
+                    }else if($row >= $rows - 2 && $number % 2 == 0){
+                        Seat::create([
+                            'room_id' => $room->id,
+                            'row' => $rowLetter,
+                            'number' => $number,
+                            'x' => $number,
+                            'y' => $row,
+                            'type' => 'couch',
+                            'group_id' => $couch_id,
+                        ]);
+
+                        $couch_id += 1;
+                    }
+                    else{
+                        Seat::create([
+                            'room_id' => $room->id,
+                            'row' => $rowLetter,
+                            'number' => $number,
+                            'x' => $number,
+                            'y' => $row,
+                            'type' => 'standard',
+                        ]);
+                    }
                 }
             }
         }
