@@ -50,7 +50,7 @@ class SeatSeeder extends Seeder
                         'row' => $rowLetter,
                         'number' => $number,
                         'x' => $number,
-                        'y' => $row,
+                        'y' => $row + 1,
                         'type' => 'wheelchair',
                         ]);
                     }else if($row >= $rows - 2 && $number % 2 != 0){
@@ -59,7 +59,7 @@ class SeatSeeder extends Seeder
                             'row' => $rowLetter,
                             'number' => $number,
                             'x' => $number,
-                            'y' => $row,
+                            'y' => $row + 1,
                             'type' => 'couch',
                             'group_id' => $couch_id,
                         ]);
@@ -69,7 +69,7 @@ class SeatSeeder extends Seeder
                             'row' => $rowLetter,
                             'number' => $number,
                             'x' => $number,
-                            'y' => $row,
+                            'y' => $row + 1,
                             'type' => 'couch',
                             'group_id' => $couch_id,
                         ]);
@@ -82,7 +82,7 @@ class SeatSeeder extends Seeder
                             'row' => $rowLetter,
                             'number' => $number,
                             'x' => $number,
-                            'y' => $row,
+                            'y' => $row + 1,
                             'type' => 'standard',
                         ]);
                     }

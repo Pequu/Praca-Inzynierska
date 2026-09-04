@@ -16,9 +16,17 @@
                     </p>
                 </div>
 
-                <x-a-secondary href="{{ route('admin') }}">
-                    Powrót
-                </x-a-secondary>
+                <div class="flex gap-3 ml-4">
+
+                    <x-a-secondary href="{{ route('admin.genres.create') }}">
+                        Dodaj gatunek
+                    </x-a-secondary>
+
+                    <x-a-secondary href="{{ route('admin') }}">
+                        Powrót
+                    </x-a-secondary>
+
+                </div>
 
             </div>
 
@@ -128,7 +136,7 @@
                                         <form
                                             method="POST"
                                             action="{{ route('admin.genres.destroy', $genre) }}"
-                                            onsubmit="return confirm('Czy na pewno chcesz usunąć ten film?');"
+                                            onsubmit="return confirm('Czy na pewno chcesz usunąć ten gatunek?');"
                                         >
 
                                             @csrf

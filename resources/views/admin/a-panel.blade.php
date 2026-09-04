@@ -56,7 +56,7 @@
 
 
                 {{-- Sale --}}
-                <a href="#"
+                <a href="{{ route('admin.rooms.index') }}"
                 class="group admin-panel">
 
                     <div class="flex items-start justify-between">

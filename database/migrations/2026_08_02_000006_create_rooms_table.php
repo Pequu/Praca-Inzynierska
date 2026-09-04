@@ -16,8 +16,11 @@ return new class extends Migration
 
             $table->string('room_name');
             $table->integer('capacity')->default(0);
+            $table->unsignedInteger('room_rows')->default(10);
+            $table->unsignedInteger('room_columns')->default(16);
             $table->text('description')->nullable();
             $table->string('color', 7)->default('#dc2626');
+
 
             $table->timestamps();
         });

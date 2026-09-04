@@ -49,12 +49,43 @@ class AdminGenresController extends Controller
             ->with('success', 'Dane gatunku zostały zaktualizowane.');
     }
 
+    public function create()
+    {
+        return view('admin.genres.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'genre_name' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:genres,genre_name',
+            ],
+
+            'color' => [
+                'required',
+                'regex:/^#[0-9A-Fa-f]{6}$/',
+            ],
+        ]);
+
+        Genre::create([
+            'genre_name' => $validated['genre_name'],
+            'color' => strtoupper($validated['color']),
+        ]);
+
+        return redirect()
+            ->route('admin.genres.index')
+            ->with('success', 'Gatunek został dodany.');
+    }
+
     public function destroy(Genre $genre)
     {
         $genre->delete();
 
         return redirect()
-            ->route('admin.movies.index')
-            ->with('success', 'Film został usunięty.');
+            ->route('admin.genres.index')
+            ->with('success', 'Gatunek został usunięty.');
     }
 }

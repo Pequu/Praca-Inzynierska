@@ -53,7 +53,7 @@ Route::middleware(['auth', 'verified', 'admin'])
     ->prefix('admin')
     ->group(function () {
 
-    // Użytkownicy
+    // Użytkownicy -----------------
     Route::get('/users', [AdminUsersController::class, 'index'])
         ->name('admin.users.index');
 
@@ -66,7 +66,7 @@ Route::middleware(['auth', 'verified', 'admin'])
     Route::delete('/users/{user}', [AdminUsersController::class, 'destroy'])
         ->name('admin.users.destroy');
 
-    // Filmy
+    // Filmy -----------------
     Route::get('/movies', [AdminMoviesController::class, 'index'])
             ->name('admin.movies.index');
 
@@ -79,7 +79,7 @@ Route::middleware(['auth', 'verified', 'admin'])
     Route::delete('/movies/{movie}', [AdminMoviesController::class, 'destroy'])
         ->name('admin.movies.destroy');
 
-    // Seanse
+    // Seanse ---------------
     Route::get('/screenings', [AdminScreeningsController::class, 'index'])
             ->name('admin.screenings.index');
 
@@ -95,7 +95,7 @@ Route::middleware(['auth', 'verified', 'admin'])
     Route::delete('/screenings/{screening}', [AdminScreeningsController::class, 'destroy'])
         ->name('admin.screenings.destroy');
 
-    // Gatunki
+    // Gatunki -----------------
     Route::get('/genres', [AdminGenresController::class, 'index'])
             ->name('admin.genres.index');
 
@@ -105,8 +105,24 @@ Route::middleware(['auth', 'verified', 'admin'])
     Route::put('/genres/{genre}', [AdminGenresController::class, 'update'])
         ->name('admin.genres.update');
 
+    Route::get('/admin/genres/create', [AdminGenresController::class,'create'])
+        ->name('admin.genres.create');
+
+    Route::post('/admin/genres', [AdminGenresController::class,'store'])
+        ->name('admin.genres.store');
+
     Route::delete('/genres/{genre}', [AdminGenresController::class, 'destroy'])
         ->name('admin.genres.destroy');
+
+    //Zarządzanie Salami---------------
+    Route::get('/rooms', [AdminRoomsController::class, 'index'])
+        ->name('admin.rooms.index');
+
+    Route::get('/rooms/{room}/edit', [AdminRoomsController::class, 'edit'])
+        ->name('admin.rooms.edit');
+
+    Route::put('/rooms/{room}', [AdminRoomsController::class,'update'])
+        ->name('admin.rooms.update');
 });
 
 // Nav
