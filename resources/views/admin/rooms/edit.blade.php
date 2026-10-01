@@ -186,7 +186,8 @@
                     "
                 >
 
-                    @for($y = 1; $y < 10; $y++)
+                    @for($y = 1; $y <= $seats->max('y'); $y++)
+                    {{-- loopuje po każdym rzedzie --}}
 
                         <!-- RZĄD -->
 
@@ -286,7 +287,7 @@
                                     text-gray-500
                                 "
                             >
-                                {{ chr(65 + $y) }}
+                                {{ chr(64 + $y) }}
                             </div>
 
                         </div>
@@ -1121,7 +1122,7 @@
 
         seatRow.value =
             String.fromCharCode(
-                65 + y
+                64 + y
             );
 
 
@@ -1260,7 +1261,7 @@
 
                     const row =
                         String.fromCharCode(
-                            65 + y
+                            64 + y
                         );
 
 
@@ -1724,7 +1725,7 @@
 
                         row:
                             String.fromCharCode(
-                                65 + y
+                                64 + y
                             ),
 
                         number:

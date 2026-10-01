@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('user_id')
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
 
@@ -28,6 +29,16 @@ return new class extends Migration
                 'cancelled'
             ])
             ->default('pending');
+
+            // Dane Klienta z czasu zamówenia
+            $table->string('customer_name');
+            $table->string('customer_surname');
+            $table->string('customer_email');
+            $table->string('customer_phone');
+            $table->string('payment_method');
+            $table->string('terms_accepted');
+            $table->string('privacy_policy_accepted');
+            $table->string('marketing_accepted');
 
             $table->decimal('total_price', 8, 2);
 

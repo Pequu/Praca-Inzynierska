@@ -13,7 +13,7 @@ class Screening extends Model
         'movie_id',
         'room_id',
         'start_time',
-        'price'
+        'screening_price'
     ];
 
 

@@ -11,7 +11,18 @@ class Reservation extends Model
         'user_id',
         'screening_id',
         'status',
-        'total_price'
+        'total_price',
+
+        'customer_name',
+        'customer_surname',
+        'customer_phone',
+        'customer_email',
+
+        'payment_method',
+
+        'terms_accepted',
+        'privacy_policy_accepted',
+        'marketing_accepted',
     ];
 
 

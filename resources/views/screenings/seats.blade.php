@@ -429,23 +429,22 @@
                 </div>
 
                 <!-- Przycisk -->
-                <button
-                    type="button"
-                    id="continueButton"
-                    disabled
+                <form
+                    method="POST"
+                    action="{{ route('screenings.checkout', $screening->id) }}"
+                    id="checkoutForm">
+                    @csrf
 
-                    class="
-                        px-8
-                        py-3
-                        rounded-lg
-                        font-semibold
-                        text-white
-                        bg-gray-400
-                        cursor-not-allowed
-                        transition
-                    ">
-                    Dalej
-                </button>
+                    <div id="selectedSeatInputs"></div>
+
+                    <button
+                        type="submit"
+                        id="continueButton"
+                        disabled
+                        class="px-8 py-3 rounded-lg font-semibold text-white bg-gray-400 cursor-not-allowed transition">
+                        Dalej
+                    </button>
+                </form>
             </div>
         </div>
     </main>
@@ -634,6 +633,23 @@
             // Cena
             const total = count * ticketPrice;
             totalPriceElement.textContent = total.toFixed(2);
+
+            /*
+            * Hidden inputy z ID miejsc
+            */
+            const selectedSeatInputs = document.getElementById('selectedSeatInputs');
+
+            selectedSeatInputs.innerHTML = '';
+
+            selectedSeats.forEach(seat => {
+                const input = document.createElement('input');
+
+                input.type = 'hidden';
+                input.name = 'seat_ids[]';
+                input.value = seat.id;
+
+                selectedSeatInputs.appendChild(input);
+            });
 
             // Przycisk Dalej
             if (count > 0) {

@@ -5,9 +5,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 // Repertuar
 use App\Http\Controllers\ScreeningsController;
+// Rezerwacje
+use App\Http\Controllers\ReservationController;
 //Navbar
 use App\Http\Controllers\OffersController;
 use App\Http\Controllers\PricesController;
+//Regulations
+use App\Http\Controllers\RegulationsController;
 //Admin Panel
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\AdminMoviesController;
@@ -38,6 +42,21 @@ Route::get(
     '/screenings/{id}/seats',
     [ScreeningsController::class, 'seats']
 )->name('screenings.seats');
+
+Route::post(
+    '/screenings/{screening}/checkout',
+    [ReservationController::class, 'checkout']
+)->name('screenings.checkout');
+
+Route::post(
+    '/screenings/{screening}/reserve',
+    [ReservationController::class, 'store']
+)->name('screenings.reserve');
+
+Route::get(
+    '/reservations/{reservation}/payment',
+    [ReservationController::class, 'payment']
+)->name('reservations.payment');
 
 /*
 *   ADMIN PANEL
@@ -126,13 +145,12 @@ Route::middleware(['auth', 'verified', 'admin'])
 });
 
 // Nav
-Route::get('offers',
-    [OffersController::class, 'offers'])
-->name('offers');
+Route::get('offers',[OffersController::class, 'offers'])->name('offers');
+Route::get('prices',[PricesController::class, 'prices'])->name('prices');
 
-Route::get('prices',
-    [PricesController::class, 'prices'])
-->name('prices');
+//Regulations
+Route::get('regulations',[RegulationsController::class, 'regulations'])->name('regulations');
+Route::get('privacy_policy',[RegulationsController::class, 'privacy_policy'])->name('privacy_policy');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
