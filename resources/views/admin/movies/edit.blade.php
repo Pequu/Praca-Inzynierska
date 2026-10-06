@@ -34,10 +34,10 @@
                         shadow-sm p-8">
 
                 <form
-                    method="POST"
                     action="{{ route('admin.movies.update', $movie) }}"
+                    method="POST"
+                    enctype="multipart/form-data"
                 >
-
                     @csrf
                     @method('PUT')
 
@@ -110,21 +110,21 @@
 
                         {{-- Kategoria wiekowa --}}
                         <div>
-                                @php
-                                    $ageRatings = ['0+', '7+', '12+', '16+', '18+'];
-                                @endphp
+                            @php
+                                $ageRatings = ['3+', '7+', '12+', '16+', '18+'];
+                            @endphp
 
-                                <x-select name="age_rating" label="Kategoria wiekowa" required>
+                            <x-select name="age_rating" label="Kategoria wiekowa" required>
 
-                                    @foreach($ageRatings as $rating)
-                                        <option class="rounded-md"
-                                            value="{{ $rating }}"
-                                            @selected(old('age_rating', $movie->age_rating) === $rating)
-                                        >
-                                            {{ $rating }}
-                                        </option>
-                                    @endforeach
-                                </x-select>
+                                @foreach($ageRatings as $rating)
+                                    <option class="rounded-md"
+                                        value="{{ $rating }}"
+                                        @selected(old('age_rating', $movie->age_rating) === $rating)
+                                    >
+                                        {{ $rating }}
+                                    </option>
+                                @endforeach
+                            </x-select>
 
                         </div>
                     </div>
@@ -160,87 +160,47 @@
                     </div>
 
                     {{-- DATA PREMIERY --}}
-                    <div class="mb-6">
-                        <label
-                            for="release_date"
-                            class="block text-sm font-semibold
-                                text-gray-700 mb-2">
-                            Data premiery
-                        </label>
-
-                        <input
-                            id="release_date"
-                            type="date"
-                            name="release_date"
-                            value="{{ old('release_date', $movie->release_date) }}"
-                            required
-                            class="w-full rounded-xl border-gray-300
-                                focus:border-zinc-500
-                                focus:ring-zinc-500">
-                        @error('release_date')
-                            <p class="mt-2 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
-                        @enderror
-
-                    </div>
-
-                    {{-- PLAKAT --}}
-                    <div class="grid grid-cols-1 md:grid-cols-3 mb-6">
-                        <div class="mb-6">
+                    <div class="mb-6 grid md:grid-cols-2 gap-6">
+                        <div>
                             <label
+                                for="release_date"
                                 class="block text-sm font-semibold
                                     text-gray-700 mb-2">
-                                Plakat
-                            </label>
-
-                            @if($movie->poster)
-                                <div class="mb-4">
-                                    <img
-                                        src="{{ asset('storage/' . $movie->poster) }}"
-                                        alt="{{ $movie->title }}"
-                                        class="w-48 h-72 object-cover
-                                            rounded-xl shadow-md">
-                                </div>
-
-                            @else
-                                <div
-                                    class="w-48 h-72 rounded-xl bg-gray-100
-                                        border border-gray-200
-                                        flex items-center justify-center
-                                        text-gray-400 mb-4">
-                                    Brak plakatu
-                                </div>
-                            @endif
-
-                        </div>
-
-                        {{-- URL PLAKATU --}}
-                        <div class="mb-8">
-                            <label
-                                for="poster"
-                                class="block text-sm font-semibold
-                                    text-gray-700 mb-2">
-                                URL plakatu
+                                Data premiery
                             </label>
 
                             <input
-                                id="poster"
-                                type="text"
-                                name="poster"
-                                value="{{ old('poster', $movie->poster) }}"
-                                placeholder="posters/..."
+                                id="release_date"
+                                type="date"
+                                name="release_date"
+                                value="{{ old('release_date', $movie->release_date) }}"
+                                required
                                 class="w-full rounded-xl border-gray-300
                                     focus:border-zinc-500
                                     focus:ring-zinc-500">
-
-                            @error('poster')
+                            @error('release_date')
                                 <p class="mt-2 text-sm text-red-600">
                                     {{ $message }}
                                 </p>
                             @enderror
 
                         </div>
+
+                        <div>
+                            <x-genre-selector
+                                :genres="$genres"
+                                :selected-genres="$movie->genres"
+                                :displayAmount="2"
+                            />
+                        </div>
+
+                    </div>
+
+                    {{-- PLAKAT --}}
+                    <div class="grid grid-cols-1 md:grid-cols-3 mb-6">
+                        <x-poster-upload
+                            :poster="$movie->poster"
+                        />
 
                         {{-- utworzony / aktualizowany --}}
                         <div class="mb-8 px-4">

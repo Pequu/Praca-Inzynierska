@@ -291,7 +291,7 @@
                             <label
                                 for="updated_at"
                                 class="block text-sm font-semibold text-gray-700">
-                                Aktualizacja
+                                Ostatnia aktualizacja
                             </label>
 
                             <p
@@ -316,14 +316,12 @@
                             Anuluj
                         </a>
 
-                        <button
+                        <x-secondary-button
                             type="submit"
-                            class="px-6 py-3 rounded-xl
-                                bg-zinc-900 text-white
-                                hover:bg-zinc-800 transition"
+                            class="px-6 py-3 rounded-xl"
                         >
                             Zapisz zmiany
-                        </button>
+                    </x-secondary-button>
 
                     </div>
 

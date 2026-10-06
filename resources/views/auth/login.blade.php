@@ -5,6 +5,11 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
+        <!-- Header -->
+            <div class="grid text-gray-200 text-3xl mb-2 justify-center">
+                Logowanie
+            </div>
+
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" class="bg-red-950"/>
@@ -22,6 +27,11 @@
                             required autocomplete="current-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                @if (Route::has('password.request'))
+                <a class="transition underline text-sm text-gray-600 dark:text-gray-200 hover:text-yellow-900 dark:hover:text-yellow-500 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
+            @endif
         </div>
 
         <!-- Remember Me -->
@@ -32,12 +42,11 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="transition underline text-sm text-gray-600 dark:text-gray-200 hover:text-yellow-900 dark:hover:text-yellow-500 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+        <!-- Register -->
+        <div class="flex items-center justify-end">
+            <a class="transition underline text-sm text-gray-600 dark:text-gray-200 hover:text-yellow-900 dark:hover:text-yellow-500 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 dark:focus:ring-offset-gray-800" href="{{ route('register') }}">
+                    {{ __('Nie masz konta?') }}
+            </a>
 
             <x-primary-button class="ms-3">
                 {{ __('Log in') }}

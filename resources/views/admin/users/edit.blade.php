@@ -149,11 +149,11 @@
                             for="created_at"
                             class="block text-sm font-semibold text-gray-700"
                         >
-                            Edytowany
+                            Utworzony
                         </label>
 
                         <div id="created_at" class="text-gray-400 text-sm mb-2">
-                            {{ $user->updated_at->format('d-m-Y | H:i') }}
+                            {{ $user->created_at->format('d-m-Y | H:i') }}
                         </div>
 
                         <label

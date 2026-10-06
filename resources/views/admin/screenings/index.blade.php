@@ -23,6 +23,10 @@
 
                 <div class="flex items-center gap-3 ">
 
+                    <x-a-secondary href="{{ route('admin.screenings.create') }}">
+                        dodaj
+                    </x-a-secondary>
+
                     @if(request('status') === 'past')
 
                         <x-a-secondary class="bg-red-950" href="{{ route('admin.screenings.index#header', [
@@ -198,7 +202,11 @@
                                 {{-- Sala --}}
                                 <td class="px-6 py-4 text-gray-600">
 
-                                    {{ $screening->room?->room_name ?? 'Brak sali' }}
+                                    <span
+                                        class="px-3 py-1 rounded-full text-xs font-semibold text-white"
+                                        style="background-color: {{ $screening->room->color }}">
+                                        {{ $screening->room->room_name }}
+                                    </span>
 
                                 </td>
 
@@ -238,14 +246,16 @@
 
 
                                         {{-- Edytuj --}}
-                                        <a
-                                            href="{{ route('admin.screenings.edit', $screening) }}"
-                                            class="px-4 py-2 rounded-lg
-                                                   bg-blue-100 text-blue-700
-                                                   hover:bg-blue-200 transition"
-                                        >
-                                            Edytuj
-                                        </a>
+                                        @if(request('status') !== 'past')
+                                            <a
+                                                href="{{ route('admin.screenings.edit', $screening) }}"
+                                                class="px-4 py-2 rounded-lg
+                                                    bg-blue-100 text-blue-700
+                                                    hover:bg-blue-200 transition"
+                                            >
+                                                Edytuj
+                                            </a>
+                                        @endif
 
 
                                         {{-- Usuń --}}

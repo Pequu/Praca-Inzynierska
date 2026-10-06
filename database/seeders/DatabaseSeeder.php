@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Mateusz',
+            'surname' => 'Rzymowski',
+            'phone' => '786902098',
             'email' => 'rzymekrz@gmail.com',
             'role_id' => '2',
         ]);

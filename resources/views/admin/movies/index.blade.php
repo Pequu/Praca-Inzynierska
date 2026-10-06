@@ -16,10 +16,15 @@
                     </p>
                 </div>
 
-                <x-a-secondary href="{{ route('admin') }}">
-                    Powrót
-                </x-a-secondary>
+                <div class="justify-end">
+                    <x-a-secondary href="{{ route('admin.movies.create') }}" class="mx-5">
+                        Dodaj
+                    </x-a-secondary>
 
+                    <x-a-secondary href="{{ route('admin') }}">
+                        Powrót
+                    </x-a-secondary>
+                </div>
             </div>
 
 

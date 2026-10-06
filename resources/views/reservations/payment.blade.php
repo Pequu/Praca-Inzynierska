@@ -14,6 +14,31 @@
 
 <body class="bg-gray-100 text-gray-900">
 
+    <!-- Navbar -->
+    <header class="bg-black text-white h-16 flex items-center px-10">
+
+        <a href="/" class="text-2xl font-bold">
+            Peqursor
+        </a>
+
+        <nav class="ml-auto flex gap-8">
+
+            <a href="/" class="hover:text-red-400">
+                Repertuar
+            </a>
+
+            <a href="#" class="hover:text-red-400">
+                Kina
+            </a>
+
+            <a href="#" class="hover:text-red-400">
+                Kontakt
+            </a>
+
+        </nav>
+
+    </header>
+
     <div class="max-w-6xl mx-auto px-6 py-10">
 
         <h1 class="text-3xl font-bold mb-8">

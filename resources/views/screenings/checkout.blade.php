@@ -228,7 +228,8 @@
                                     type="text"
                                     id="customer_name"
                                     name="customer_name"
-                                    value="{{ old('customer_name') }}"
+                                    placeholder="Jan"
+                                    value="{{ old('customer_name', auth()->user()->name ?? '') }}"
                                     required
                                     autocomplete="given-name"
                                     class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"
@@ -259,7 +260,8 @@
                                     type="text"
                                     id="customer_surname"
                                     name="customer_surname"
-                                    value="{{ old('customer_surname') }}"
+                                    placeholder="Kowalski"
+                                    value="{{ old('customer_surname', auth()->user()->surname ?? '') }}"
                                     required
                                     autocomplete="family-name"
                                     class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500"
@@ -290,6 +292,7 @@
                                     type="email"
                                     id="customer_email"
                                     name="customer_email"
+                                    placeholder="email@domena.pl"
                                     value="{{ old('customer_email', auth()->user()->email ?? '') }}"
                                     required
                                     autocomplete="email"
@@ -310,6 +313,7 @@
 
                             </div>
 
+                            <!-- Telefon -->
                             <div>
                                 <label
                                     for="customer_phone"
@@ -322,7 +326,8 @@
                                     type="tel"
                                     id="customer_phone"
                                     name="customer_phone"
-                                    value="{{ old('customer_phone') }}"
+                                    placeholder="123 456 789"
+                                    value="{{ old('customer_phone', auth()->user()->phone ?? '') }}"
                                     required
                                     autocomplete="tel"
                                     class="w-full rounded-lg border border-gray-300 px-4 py-2.5 outline-none transition focus:border-red-600"
@@ -338,7 +343,7 @@
                         </div>
 
                         @guest
-                            <div class="mb-6 rounded-lg border border-gray-200 bg-gray-50 px-5 py-4">
+                            <div class="mt-6 rounded-lg border border-gray-200 bg-gray-50 px-5 py-4">
                                 <p class="text-sm text-gray-700">
                                     Nie jesteś zalogowany?
                                     <a

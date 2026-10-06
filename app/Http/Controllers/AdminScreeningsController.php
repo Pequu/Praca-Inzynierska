@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Screening;
 use App\Models\Movie;
 use App\Models\Room;
+use Carbon\Traits\Timestamp;
 
 class AdminScreeningsController extends Controller
 {
@@ -63,32 +64,27 @@ class AdminScreeningsController extends Controller
     public function update(Request $request, Screening $screening)
     {
         $validated = $request->validate([
-            'movie_id' => [
-                'required',
-                'exists:movies,id',
-            ],
-
-            'room_id' => [
-                'required',
-                'exists:rooms,id',
-            ],
-
-            'start_time' => [
-                    'required',
-                    'date'
-            ],
-
-            'screening_price' => [
-                'required',
-                'numeric',
-                'min:0',
-            ],
-
-            'status' => [
-                'required',
-                'in:scheduled,cancelled,finished',
-            ],
+            'movie_id' => ['required', 'exists:movies,id',],
+            'room_id' => ['required', 'exists:rooms,id',],
+            'start_time' => ['required', 'date', 'after_or_equal:now'],
+            'screening_price' => ['required', 'numeric', 'min:0',],
+            'status' => ['required', 'in:scheduled,cancelled,finished',],
         ]);
+
+        if (
+            $this->hasConflict(
+                $validated['room_id'],
+                $validated['start_time'],
+                $validated['movie_id'],
+                $screening->id
+            )
+        ) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'start_time' => 'W wybranej sali w tym czasie odbywa się już inny seans.',
+                ]);
+        }
 
         $screening->movie_id = $validated['movie_id'];
         $screening->room_id = $validated['room_id'];
@@ -101,5 +97,94 @@ class AdminScreeningsController extends Controller
         return redirect()
             ->route('admin.screenings.index')
             ->with('success', 'Seans został zaktualizowany.');
+    }
+
+    // Formularz dodawnia seansu
+    public function create()
+    {
+        $movies = Movie::orderBy('title', 'asc')->get();
+
+        $rooms = Room::orderBy('room_name', 'asc')->get();
+
+        return view('admin.screenings.create', compact(
+            'movies',
+            'rooms'
+        ));
+    }
+
+    //Zapisanie nowegu seansu
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'movie_id' => ['required','exists:movies,id',],
+            'room_id' => ['required','exists:rooms,id',],
+            'start_time' => ['required', 'date', 'after_or_equal:now'],
+            'screening_price' => ['required','numeric','min:0',],
+        ]);
+
+        if (
+            $this->hasConflict(
+                $validated['room_id'],
+                $validated['start_time'],
+                $validated['movie_id']
+            )
+        ) {
+            return back()
+                ->withInput() //farmularz zachowa poprzednie wartości
+                ->withErrors([
+                    'start_time' => 'W wybranej sali w tym czasie odbywa się już inny seans.',
+                ]);
+        }
+
+        Screening::create([
+            'movie_id' => $validated['movie_id'],
+            'room_id' => $validated['room_id'],
+            'start_time' => $validated['start_time'],
+            'screening_price' => $validated['screening_price'],
+            'status' => 'scheduled',
+        ]);
+
+        return redirect()
+            ->route('admin.screenings.index')
+            ->with('success', 'Seans został dodany.');
+    }
+
+    private function hasConflict(int $roomId, $startTime, int $movieId, ?int $ignoreScreeningId = null): bool {
+        $movie = Movie::findOrFail($movieId);
+
+        $newStart = \Carbon\Carbon::parse($startTime);
+        $newEnd = $newStart->copy()->addMinutes($movie->duration); //ustalenie czasu zakończenia
+
+        $query = Screening::with('movie')
+            ->where('room_id', $roomId)
+            ->where('status', '!=', 'cancelled');
+
+        if ($ignoreScreeningId !== null) {
+            $query->where('id', '!=', $ignoreScreeningId);
+        }
+
+        $screenings = $query->get();
+
+        foreach ($screenings as $screening) {
+
+            $existingStart = \Carbon\Carbon::parse($screening->start_time);
+
+            $existingEnd = $existingStart
+                ->copy()
+                ->addMinutes($screening->movie->duration);
+
+            /*
+            * Konflikt występuje, gdy przedziały czasowe
+            * nakładają się na siebie.
+            */
+            if (
+                $newStart < $existingEnd &&
+                $newEnd > $existingStart
+            ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

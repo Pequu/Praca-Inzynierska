@@ -19,6 +19,9 @@ use App\Http\Controllers\AdminReservationsController;
 use App\Http\Controllers\AdminRoomsController;
 use App\Http\Controllers\AdminScreeningsController;
 use App\Http\Controllers\AdminGenresController;
+//Email
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Mail;
 
 // Repertuar
 Route::get('/', [ScreeningsController::class, 'index'])->name('index');
@@ -95,6 +98,12 @@ Route::middleware(['auth', 'verified', 'admin'])
     Route::put('/movies/{movie}', [AdminMoviesController::class, 'update'])
         ->name('admin.movies.update');
 
+    Route::get('/admin/movies/create', [AdminMoviesController::class, 'create'])
+        ->name('admin.movies.create');
+
+    Route::post('/admin/movies',[AdminMoviesController::class, 'store'])
+        ->name('admin.movies.store');
+
     Route::delete('/movies/{movie}', [AdminMoviesController::class, 'destroy'])
         ->name('admin.movies.destroy');
 
@@ -110,6 +119,13 @@ Route::middleware(['auth', 'verified', 'admin'])
 
     Route::put('/screenings/{screening}', [AdminScreeningsController::class, 'update'])
         ->name('admin.screenings.update');
+
+        //Formularz dodawania
+    Route::get('/screenings/create', [AdminScreeningsController::class, 'create'])
+        ->name('admin.screenings.create');
+
+    Route::post('/screenings', [AdminScreeningsController::class, 'store'])
+    ->name('admin.screenings.store');
 
     Route::delete('/screenings/{screening}', [AdminScreeningsController::class, 'destroy'])
         ->name('admin.screenings.destroy');
@@ -158,6 +174,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//Email
+Route::get('/test-email', function () {
+    Mail::to('test@example.com')->send(new TestMail());
 
+    return 'Email został wysłany.';
+});
 
 require __DIR__.'/auth.php';
