@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
 
+            $table->string('access_token', 64)
+                ->unique();
+
             $table->foreignId('user_id')
                 ->nullable()
                 ->constrained()

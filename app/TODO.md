@@ -3,10 +3,12 @@
 <!-- -Autouzupelniania danych z konta   -->
 -pseudo bramka platnosci
 -generowanie biletow
+    `simplesoftwareio/simple-qrcode ` przez to robimy kody qr
+    `composer require barryvdh/laravel-dompdf` przez to robimy pdf
 -wysyłnie biletu na email
 
 *Rejestracja*
--Reset hasła
+<!-- -Reset hasła -->
 -  
 
 *Edycja konta uzytkownika*

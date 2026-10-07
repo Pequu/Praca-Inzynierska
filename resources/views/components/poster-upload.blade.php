@@ -7,6 +7,7 @@
         Plakat
     </label>
 
+    {{-- Dropzone --}}
     <div
         id="posterDropzone"
         class="relative flex min-h-80 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 transition hover:border-red-500 hover:bg-gray-100"
@@ -19,6 +20,7 @@
             class="hidden"
         >
 
+        {{-- placeholder ikonka --}}
         <div
             id="posterPlaceholder"
             class="{{ $poster ? 'hidden' : '' }} pointer-events-none flex flex-col items-center px-6 text-center"
@@ -50,6 +52,7 @@
             </p>
         </div>
 
+         {{-- Podgląd plakatu --}}
         <div
             id="posterPreviewContainer"
             class="{{ $poster ? '' : 'hidden' }} absolute inset-0"

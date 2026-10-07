@@ -36,30 +36,32 @@ Route::get('/screenings', [ScreeningsController::class, 'index'])
     ->name('screenings.index');
 
 // Obsluga wyswietlania informacji o konkretnym seansie
-Route::get('/screenings/{screening}',
-    [ScreeningsController::class, 'show']
-)->name('screenings.show');
+Route::get('/screenings/{screening}', [ScreeningsController::class, 'show'])
+    ->name('screenings.show');
 
 // Obsluga rezerwacji miejsc na seans
-Route::get(
-    '/screenings/{id}/seats',
-    [ScreeningsController::class, 'seats']
-)->name('screenings.seats');
+Route::get('/screenings/{id}/seats', [ScreeningsController::class, 'seats'])
+    ->name('screenings.seats');
 
-Route::post(
-    '/screenings/{screening}/checkout',
-    [ReservationController::class, 'checkout']
-)->name('screenings.checkout');
+Route::post('/screenings/{screening}/checkout', [ReservationController::class, 'checkout'])
+    ->name('screenings.checkout');
 
-Route::post(
-    '/screenings/{screening}/reserve',
-    [ReservationController::class, 'store']
-)->name('screenings.reserve');
+Route::post('/screenings/{screening}/reserve', [ReservationController::class, 'store'])
+    ->name('screenings.reserve');
 
-Route::get(
-    '/reservations/{reservation}/payment',
-    [ReservationController::class, 'payment']
-)->name('reservations.payment');
+Route::get('/reservations/{reservation}/payment', [ReservationController::class, 'payment'])
+    ->name('reservations.payment');
+
+Route::post('/reservations/{reservation}/payment/confirm', [ReservationController::class, 'confirmPayment'])
+    ->name('reservations.payment.confirm');
+
+Route::get('/reservations/{reservation}/confirmation/{access_token}', [ReservationController::class, 'confirmation'])
+    ->name('reservations.confirmation');
+
+// Obsługa generowania PDF z biletami dla rezerwacji
+Route::get('/reservations/{reservation}/tickets/pdf/{access_token}', [ReservationController::class, 'ticketsPdf'])
+    ->name('reservations.tickets.pdf');
+
 
 /*
 *   ADMIN PANEL

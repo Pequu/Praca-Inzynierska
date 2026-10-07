@@ -12,8 +12,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Mail\ReservationTicketMail;
+use Illuminate\Support\Facades\Mail;
+
 class ReservationController extends Controller
 {
+    // Obsługa wyświetlania strony checkout dla rezerwacji
     public function checkout(Request $request, Screening $screening)
     {
         $validated = $request->validate([
@@ -69,6 +74,7 @@ class ReservationController extends Controller
     }
 
 
+    // Obsługa tworzenia rezerwacji
     public function store(Request $request, Screening $screening)
     {
         $validated = $request->validate([
@@ -135,6 +141,7 @@ class ReservationController extends Controller
         ) {
             $reservation = Reservation::create([
                 'user_id' => Auth::id(),
+                'access_token' => Str::random(64),
                 'screening_id' => $screening->id,
                 'status' => 'pending',
                 'total_price' => $totalPrice,
@@ -170,6 +177,7 @@ class ReservationController extends Controller
         );
     }
 
+    // Wyświetlanie strony płatności dla rezerwacji
     public function payment(Reservation $reservation)
     {
         $reservation->load([
@@ -181,5 +189,95 @@ class ReservationController extends Controller
         return view('reservations.payment', [
             'reservation' => $reservation,
         ]);
+    }
+
+    // Potwierdzenie płatności dla rezerwacji
+   public function confirmPayment(Reservation $reservation)
+    {
+        if ($reservation->status !== 'pending') {
+            return redirect()
+                ->route('reservations.payment', $reservation)
+                ->with('error', 'Ta rezerwacja nie wymaga już płatności.');
+        }
+
+        DB::transaction(function () use ($reservation) {
+            $reservation->load([
+                'screening',
+                'reservationSeats.seat',
+            ]);
+
+            $reservation->update([
+                'status' => 'confirmed',
+            ]);
+
+            foreach ($reservation->reservationSeats as $reservationSeat) {
+                Ticket::create([
+                    'reservation_id' => $reservation->id,
+                    'user_id' => $reservation->user_id,
+                    'screening_id' => $reservation->screening_id,
+                    'seat_id' => $reservationSeat->seat_id,
+                    'qr_code' => (string) Str::uuid(),
+                    'status' => 'valid',
+                    'ticket_price' => $reservation->screening->screening_price,
+                ]);
+            }
+        });
+
+        Mail::to($reservation->customer_email)
+            ->send(new ReservationTicketMail($reservation));
+
+        return redirect()->route('reservations.confirmation', [
+            'reservation' => $reservation,
+            'access_token' => $reservation->access_token,
+        ]);
+    }
+
+    // Strona potwierdzenia zakupu
+    public function confirmation(Reservation $reservation, string $access_token) {
+        if (!hash_equals($reservation->access_token, $access_token)) {
+            abort(404);
+        }
+
+        if ($reservation->status !== 'confirmed') {
+            return redirect()
+                ->route('reservations.payment', $reservation)
+                ->with(
+                    'error',
+                    'Ta rezerwacja nie została jeszcze opłacona.'
+                );
+        }
+
+        $reservation->load([
+            'screening.movie',
+            'screening.room',
+            'reservationSeats.seat',
+            'tickets',
+        ]);
+
+        return view('reservations.confirmation', [
+            'reservation' => $reservation,
+        ]);
+    }
+
+    // Generowanie pliku PDF z biletami dla rezerwacji
+    public function ticketsPdf(Reservation $reservation, string $access_token)
+    {
+        if (!hash_equals($reservation->access_token, $access_token)) {
+            abort(404);
+        }
+
+        if ($reservation->status !== 'confirmed') {
+            abort(404);
+        }
+
+        $reservation->load([
+            'tickets.screening.movie',
+            'tickets.screening.room',
+            'tickets.seat',
+        ]);
+
+        $pdf = Pdf::loadView('tickets.pdf', ['tickets' => $reservation->tickets]);
+
+        return $pdf->download('bilety-' . $reservation->id . '.pdf');
     }
 }

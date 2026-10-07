@@ -9,6 +9,7 @@ class Reservation extends Model
 
     protected $fillable = [
         'user_id',
+        'access_token',
         'screening_id',
         'status',
         'total_price',
@@ -24,7 +25,6 @@ class Reservation extends Model
         'privacy_policy_accepted',
         'marketing_accepted',
     ];
-
 
     public function user()
     {
@@ -45,4 +45,10 @@ class Reservation extends Model
         );
     }
 
+    public function tickets()
+    {
+        return $this->hasMany(
+            Ticket::class
+        );
+    }
 }

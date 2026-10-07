@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('tickets', function (Blueprint $table) {
@@ -19,6 +16,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->foreignId('user_id')
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
 
@@ -38,7 +36,6 @@ return new class extends Migration
                 'cancelled'
             ])->default('valid');
 
-            // The timestamp when the ticket was used (if applicable)
             $table->timestamp('used_at')->nullable();
 
             $table->decimal('ticket_price', 8, 2);
@@ -47,9 +44,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('tickets');
