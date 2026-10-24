@@ -17,9 +17,9 @@ if (qrReader && scanResult) {
         if (type === 'success') {
             scanResult.style.backgroundColor = '#16a34a';
         } else if (type === 'info') {
-            scanResult.classList.add('border-blue-300', 'bg-blue-600');
+            scanResult.style.backgroundColor = '#2563eb';
         } else {
-            scanResult.classList.add('border-red-300', 'bg-red-600');
+            scanResult.style.backgroundColor = '#dc2626';
         }
 
         scanResult.replaceChildren(); //usuwa poprzednią zawartość
