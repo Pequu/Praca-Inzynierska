@@ -17,6 +17,7 @@
 
 **Pracownik**
 -przebudować panel zeby mial wiecej sensu z podziałem na role `pracownik/admin`
+-Skaner biletów kod QR `npm install html5-qrcode`
 
 
 **ADMIN**
@@ -32,3 +33,4 @@
 *Edycja seansów*
 <!-- -dodwanie seansów
     łączenie filmów z salami plus czas itd. -->
+    

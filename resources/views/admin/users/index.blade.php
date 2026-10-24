@@ -119,7 +119,7 @@
                                             {{ 'Administrator' }}
                                         </span>
 
-                                    @elseif($user->role?->role_name === 'worker')
+                                    @elseif($user->role?->role_name === 'employee')
 
                                         <span class="px-3 py-1 rounded-full
                                                     text-xs font-semibold

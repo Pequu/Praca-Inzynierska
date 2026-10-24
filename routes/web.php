@@ -12,6 +12,8 @@ use App\Http\Controllers\OffersController;
 use App\Http\Controllers\PricesController;
 //Regulations
 use App\Http\Controllers\RegulationsController;
+//Employee Panel
+use App\Http\Controllers\EmployeeScannerController;
 //Admin Panel
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\AdminMoviesController;
@@ -37,6 +39,7 @@ Route::get('/screenings', [ScreeningsController::class, 'index'])
 
 // Obsluga wyswietlania informacji o konkretnym seansie
 Route::get('/screenings/{screening}', [ScreeningsController::class, 'show'])
+    ->middleware('customer')
     ->name('screenings.show');
 
 // Obsluga rezerwacji miejsc na seans
@@ -62,6 +65,21 @@ Route::get('/reservations/{reservation}/confirmation/{access_token}', [Reservati
 Route::get('/reservations/{reservation}/tickets/pdf/{access_token}', [ReservationController::class, 'ticketsPdf'])
     ->name('reservations.tickets.pdf');
 
+/*
+*   EMPLOYEE PANEL
+*/
+
+// Obsługa dostępu do panelu pracownika
+Route::middleware(['auth', 'verified', 'employee'])
+    ->prefix('employee')
+    ->group(function () {
+
+    Route::get('/scanner', [EmployeeScannerController::class, 'index'])
+        ->name('employee.scanner');
+
+    Route::post('/scanner/verify', [EmployeeScannerController::class, 'verify'])
+        ->name('employee.scanner.verify');
+});
 
 /*
 *   ADMIN PANEL

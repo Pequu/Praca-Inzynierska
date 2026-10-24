@@ -192,7 +192,7 @@ class ReservationController extends Controller
     }
 
     // Potwierdzenie płatności dla rezerwacji
-   public function confirmPayment(Reservation $reservation)
+public function confirmPayment(Reservation $reservation)
     {
         if ($reservation->status !== 'pending') {
             return redirect()
@@ -234,7 +234,8 @@ class ReservationController extends Controller
 
     // Strona potwierdzenia zakupu
     public function confirmation(Reservation $reservation, string $access_token) {
-        if (!hash_equals($reservation->access_token, $access_token)) {
+
+        if ($reservation->access_token !== $access_token) {
             abort(404);
         }
 

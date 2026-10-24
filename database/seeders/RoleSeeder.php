@@ -20,7 +20,7 @@ class RoleSeeder extends Seeder
             ],
 
             [
-                'role_name' => 'worker',
+                'role_name' => 'employee',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
