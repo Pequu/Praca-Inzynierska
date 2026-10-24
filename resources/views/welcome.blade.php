@@ -76,16 +76,25 @@
                                     </p>
 
                                     <div class="flex flex-wrap gap-2">
-
+                                      
                                         @foreach($movieScreenings as $screening)
 
-                                            <a
-                                                href="{{ route('screenings.show', $screening->id) }}"
-                                                class="text-white px-4 py-2 rounded-lg font-semibold transition"
-                                                style="background-color: {{ $screening->room->color }}"
-                                            >
-                                                {{ $screening->start_time->format('H:i') }}
-                                            </a>
+                                            @if($screening->is_finished)
+                                                <span
+                                                    class="text-gray-500 bg-gray-300 px-4 py-2 rounded-lg font-semibold cursor-not-allowed opacity-70"
+                                                    aria-disabled="true"
+                                                >
+                                                    {{ $screening->start_time->format('H:i') }}
+                                                </span>
+                                            @else
+                                                <a
+                                                    href="{{ route('screenings.show', $screening->id) }}"
+                                                     class="inline-block text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:brightness-110 hover:shadow-lg"
+                                                    style="background-color: {{ $screening->room->color }}"
+                                                >
+                                                    {{ $screening->start_time->format('H:i') }}
+                                                </a>
+                                            @endif
 
                                         @endforeach
 

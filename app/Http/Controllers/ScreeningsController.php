@@ -19,6 +19,16 @@ class ScreeningsController extends Controller
             ->orderBy('start_time')
             ->get();
 
+        // Określ, czy seans już się zakończył (blokuje 45 min przed koncem seansu).
+        $now = now();
+
+        foreach ($screenings as $screening) {
+            $screening->is_finished = $screening->start_time
+                ->copy()
+                ->addMinutes($screening->movie->duration-45) // odejmuje 45 min od czasu zakonczenia
+                ->lt($now);
+        }
+
         // 7 najbliższych dni
         $dates = collect();
 
